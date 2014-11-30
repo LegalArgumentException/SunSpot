@@ -1,0 +1,51 @@
+/*
+	Author: Tanner Garret
+	Build: 1.0.0
+	Description: Specifies all rules, fonts, and other specifications of the main page of SunSpot
+*/
+
+/* Imported Fonts */
+
+@import url(http://fonts.googleapis.com/css?family=Oswald:400,700);
+@import url(http://fonts.googleapis.com/css?family=Raleway:700,400);
+
+/* CSS Rules */
+
+body {
+}
+
+h1 {
+	font-size: 4em;
+	font-weight: 700;
+	letter-spacing: .25em;
+}
+
+header {
+	background-color: #F5DB47;
+	border-bottom: 5px solid #F59E47;
+	font-family: 'Oswald', 'Helvetica', sans-serif;
+	padding: 1em;
+}
+
+input {
+	max-width: 100%;
+}
+
+.container-fluid, .row {
+	margin: 0px;
+	padding: 0px;
+}
+
+#sidebar {
+	background-color: rgba(245, 219, 71, 0.5);
+	font-family: 'Raleway', sans-serif;	
+	font-weight: 700;
+}
+
+#results {
+	display: none;
+}
+
+@media (min-width : 992px) {
+
+}
