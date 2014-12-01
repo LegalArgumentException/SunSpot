@@ -6,12 +6,19 @@ $(document).ready(function() {
 	};
 	var map = new google.maps.Map(document.getElementById('maparea'), mapOptions);
 	updateSize();
-	//$("#radios").radiosToSlider();
+	$("#efficiencySlider").simpleSlider("setValue", 15);
+	$("#efficiencySlider").bind("slider:changed", function (event, data) {
+  		$("#efficiency").html(Math.floor(data.value) + "%");
+	});
 });
 
 function updateSize() {
 	var headerHeight = $("header").height();
-	$("#maparea, #sidebar").height($(window).height() - headerHeight);
+	$("#maparea, #sidebar").height($(window).height() - (headerHeight + 33));
+	// if($(sidebar).width() < 340) {
+	// 	$(sidebar).width(340);
+	// 	$(maparea).width($(window).width() - ($sidebar).width());
+	// }
 }
 
 // function makeSlider() {

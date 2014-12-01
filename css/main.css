@@ -31,9 +31,32 @@ input {
 	max-width: 100%;
 }
 
+legend {
+	font-size: 2.2em;
+}
+
 .container-fluid, .row {
 	margin: 0px;
 	padding: 0px;
+}
+
+.sidebarItem {
+	margin-top: 10px;
+}
+
+#efficiency {
+	text-align: center;
+	font-size: 3em;
+	margin-top: 20px;
+}
+
+#efficiencySlider-slider {
+		width: 100%;
+}
+
+#longitude, #latitude {
+	margin-bottom: 20px;
+	text-align: center;
 }
 
 #sidebar {

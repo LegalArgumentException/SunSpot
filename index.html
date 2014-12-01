@@ -6,9 +6,9 @@
 		<meta name="author" content="Tanner Garrett" />
 		<meta name="description" content="An interactive map tool to help users find the the appropriate solar setup to suit their needs" />
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="./css/simple-slider.css" />
 		<link rel="stylesheet" type="text/css" href="./css/main.css" />
 		<link rel="icon" type="image/png" href="./img/sun.png" />
-
 	</head>
 
 	<body>
@@ -19,41 +19,53 @@
 			</header>
 			<div id="queryarea">
 				<div class="row">
-					<div class="col-sm-9" id="maparea"></div>
+					<div class="col-sm-8" id="maparea"></div>
 
-					<div class="col-sm-3" id="sidebar">
+					<div class="col-sm-4" id="sidebar">
 						<form>
 							<fieldset>
-								<legend>Position</legend>
-								<div class="col-sm-6">
-									Latitude : <input type="text" name="latitude" id="latitude" />
-								</div>
-								<div class="col-sm-6">
-									Longitude : <input type="text" name="longitude" id="longitude" />
-								</div>
-								<legend>Angle</legend>
-								<div class="radio">
-									<label><input type="radio" name="optradio">Flat</label>
+								<div class="sidebarItem">
+									<legend>Position</legend>
+									<div class="col-sm-6" id="latitude">
+										Latitude : <br />
+										<input type="text" name="latitude" id="latitude" />
 									</div>
+									<div class="col-sm-6" id="longitude">
+										Longitude : <br />
+										<input type="text" name="longitude" id="longitude" />
+									</div>
+								</div>
+								<div class="sidebarItem">
+									<legend>Angle</legend>
 									<div class="radio">
-									  <label><input type="radio" name="optradio">Optimum</label>
+										<label><input type="radio" name="optradio">Flat</label>
+										</div>
+										<div class="radio">
+										  <label><input type="radio" name="optradio">Optimum</label>
 									</div>
-								<legend>Time of Year</legend>
-								<select name="month" id="radios" onchange="" size="1">
-								    <option id="january" value="01">January</option>
-								    <option id="february" value="02">February</option>
-								    <option id="march" value="03">March</option>
-								    <option id="april" value="04">April</option>
-								    <option id="may" value="05">May</option>
-								    <option id="june" value="06">June</option>
-								    <option id="july" value="07">July</option>
-								    <option id="august" value="08">August</option>
-								    <option id="september" value="09">September</option>
-								    <option id="october" value="10">October</option>
-								    <option id="november" value="11">November</option>
-								    <option id="december" value="12">December</option>
-								</select>
-								<legend>Panel Efficiency</legend>
+								</div>
+								<div class="sidebarItem">
+									<legend>Time of Year</legend>
+									<select name="month" id="radios" onchange="" size="1">
+									    <option id="january" value="01">January</option>
+									    <option id="february" value="02">February</option>
+									    <option id="march" value="03">March</option>
+									    <option id="april" value="04">April</option>
+									    <option id="may" value="05">May</option>
+									    <option id="june" value="06">June</option>
+									    <option id="july" value="07">July</option>
+									    <option id="august" value="08">August</option>
+									    <option id="september" value="09">September</option>
+									    <option id="october" value="10">October</option>
+									    <option id="november" value="11">November</option>
+									    <option id="december" value="12">December</option>
+									</select>
+								</div>
+								<div class="sidebarItem">
+									<legend>Panel Efficiency</legend>
+									<input id="efficiencySlider" type="text" data-slider="true" data-slider-range="1, 100" />
+									<p id="efficiency">15%</p>
+								</div>
 							</fieldset>
 						</form>
 					</div>
@@ -63,6 +75,7 @@
 			</div>
 		</main>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script typer="text/javascript" src="./js/simple-slider.js"></script>
 		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDbZs-3ZutkFegVRuzG522cEd6ZJ3RWWNA"></script>
 		<script type="text/javascript" src="./js/mapsAPI.js"></script>
 	</body>
