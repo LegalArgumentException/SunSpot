@@ -38,8 +38,8 @@ function updateSize() {
 function showPosition (position) {
 	latitudeDefault = position.coords.latitude;
 	longitudeDefault = position.coords.longitude;
-	$('input#latitude').attr("value", latitudeDefault);
-	$('input#longitude').attr("value", longitudeDefault);
+	$('p#latitude').html(latitudeDefault);
+	$('p#longitude').html(longitudeDefault);
 }
 
 function addMyMarker(latitude, longitude, map) {
