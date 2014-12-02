@@ -14,7 +14,6 @@ $(document).ready(function() {
 	};
 	var map = new google.maps.Map(document.getElementById('maparea'), mapOptions);
 	var marker = addMyMarker(latitudeDefault, longitudeDefault, map);
-	updateLocation(marker);
 	google.maps.event.addListener(marker, 'dragend', function() {
 		var curPosition = marker.getPosition();
 		$('input#latitude').attr("value", curPosition.lat());
@@ -51,20 +50,7 @@ function addMyMarker(latitude, longitude, map) {
 		animation: google.maps.Animation.DROP,
 		icon: "http://maps.google.com/mapfiles/ms/micons/blue.png"		
 	});
-
-	// google.maps.event.addListener(marker, 'dragend', function() {
-	// 	var curPosition = market.getPosition();
-	// 	$('input#latitude').attr("value", curPosition.lat());
-	// 	$('input#longitude').attr("value", curPosition.lng());
-	// });
-
 	return marker;
-}
-
-function updateLocation(marker) {
-	alert(marker.position);
-	// $('input#latitude').attr("value", marker.position);
-	// $('input#longitude').attr("value", marker.position);
 }
 
 // function makeSlider() {
