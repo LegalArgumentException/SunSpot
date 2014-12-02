@@ -1,7 +1,14 @@
 $(document).ready(function() {
-	$(window).on("resize", updateSize)
+	$(window).on("resize", updateSize);
+	
+	var latitudeDefault = 47.656467;
+	var longitudeDefault = -122.308969;
+	
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(showPosition);
+	}
 	var mapOptions = {
-		center: {lat: -34.397, lng: 150.644},
+		center: {lat: latitudeDefault, lng: longitudeDefault},
 		zoom: 8
 	};
 	var map = new google.maps.Map(document.getElementById('maparea'), mapOptions);
@@ -20,6 +27,23 @@ function updateSize() {
 	// 	$(maparea).width($(window).width() - ($sidebar).width());
 	// }
 }
+
+function showPosition (position) {
+	latitudeDefault = position.coords.latitude;
+	longitudeDefault = position.coords.longitude;
+	$('input#latitude').attr("value", latitudeDefault);
+	$('input#longitude').attr("value", longitudeDefault);
+}
+
+// function addMyMarker() {
+// 	var marker = new google.maps.Marker({
+// 		position: geo
+// 		map: map,
+// 		draggable: true,
+// 		animation: google.maps.
+		
+// 	});
+// }
 
 // function makeSlider() {
 // 	var select = $( "#minbeds" );
