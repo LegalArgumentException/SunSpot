@@ -3,7 +3,8 @@ $(document).ready(function() {
 	
 	var latitudeDefault = 47.656467;
 	var longitudeDefault = -122.308969;
-	
+	var currentLocation = new google.maps.LatLng(latitudeDefault, longitudeDefault);
+
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(showPosition);
 	}
@@ -12,6 +13,13 @@ $(document).ready(function() {
 		zoom: 8
 	};
 	var map = new google.maps.Map(document.getElementById('maparea'), mapOptions);
+	var marker = addMyMarker(latitudeDefault, longitudeDefault, map);
+	updateLocation(marker);
+	google.maps.event.addListener(marker, 'dragend', function() {
+		var curPosition = marker.getPosition();
+		$('input#latitude').attr("value", curPosition.lat());
+		$('input#longitude').attr("value", curPosition.lng());
+	});
 	updateSize();
 	$("#efficiencySlider").simpleSlider("setValue", 15);
 	$("#efficiencySlider").bind("slider:changed", function (event, data) {
@@ -35,15 +43,29 @@ function showPosition (position) {
 	$('input#longitude').attr("value", longitudeDefault);
 }
 
-// function addMyMarker() {
-// 	var marker = new google.maps.Marker({
-// 		position: geo
-// 		map: map,
-// 		draggable: true,
-// 		animation: google.maps.
-		
-// 	});
-// }
+function addMyMarker(latitude, longitude, map) {
+	var marker = new google.maps.Marker({
+		position: new google.maps.LatLng(latitude, longitude),
+		map: map,
+		draggable: true,
+		animation: google.maps.Animation.DROP,
+		icon: "http://maps.google.com/mapfiles/ms/micons/blue.png"		
+	});
+
+	// google.maps.event.addListener(marker, 'dragend', function() {
+	// 	var curPosition = market.getPosition();
+	// 	$('input#latitude').attr("value", curPosition.lat());
+	// 	$('input#longitude').attr("value", curPosition.lng());
+	// });
+
+	return marker;
+}
+
+function updateLocation(marker) {
+	alert(marker.position);
+	// $('input#latitude').attr("value", marker.position);
+	// $('input#longitude').attr("value", marker.position);
+}
 
 // function makeSlider() {
 // 	var select = $( "#minbeds" );
