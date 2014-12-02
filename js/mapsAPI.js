@@ -16,8 +16,8 @@ $(document).ready(function() {
 	var marker = addMyMarker(latitudeDefault, longitudeDefault, map);
 	google.maps.event.addListener(marker, 'dragend', function() {
 		var curPosition = marker.getPosition();
-		$('input#latitude').attr("value", curPosition.lat());
-		$('input#longitude').attr("value", curPosition.lng());
+		$('p#latitude').html(curPosition.lat());
+		$('p#longitude').html(curPosition.lng());
 	});
 	updateSize();
 	$("#efficiencySlider").simpleSlider("setValue", 15);
