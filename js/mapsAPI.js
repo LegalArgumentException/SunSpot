@@ -95,5 +95,5 @@ function updateResults() {
 	 "% (efficiency) * <br/>" + currentYield + " (kwh/square meter/day) * <br/>" +
 	  surfaceArea + " (square meters) * <br/>75% (average performance ratio) =");
 	var totalYield = currentEfficiency * currentYield * surfaceArea * .75;
-	$("#totalResults").html(Math.round(totalYield) + " <br/>(kwh per day)");
+	$("#totalResults").html((totalYield * .1).toFixed(2) + " <br/>(kwh per day)");
 }
