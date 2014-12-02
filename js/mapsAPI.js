@@ -25,7 +25,7 @@ $(document).ready(function() {
   		$("#efficiency").html(Math.floor(data.value) + "%");
 	});
 });
-
+	
 function updateSize() {
 	var headerHeight = $("header").height();
 	$("#maparea, #sidebar").height($(window).height() - (headerHeight + 33));
