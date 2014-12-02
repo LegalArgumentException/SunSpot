@@ -1,9 +1,24 @@
-$(document).ready(function() {
-	$(window).on("resize", updateSize);
-	
+	var dataArray = solarData.split(' ');
 	var latitudeDefault = 47.656467;
 	var longitudeDefault = -122.308969;
+	var monthArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 	var currentLocation = new google.maps.LatLng(latitudeDefault, longitudeDefault);
+	var currentEfficiency = 0;
+	var currentYield = 0;
+	var currentMonth = 0;
+	var surfaceArea = 0;
+
+$(document).ready(function() {
+
+	$(window).on("resize", updateSize);
+	$("#surfaceArea").keydown(updateResults());
+	$("#efficiencySlider").change(updateResults());
+	$("#months").on("change", function () {
+		getPosData(Math.round($('p#latitude').html()), Math.round($('p#longitude').html()), dataArray, monthArray);
+	});
+	$("#change").on("click", function() { 
+		getPosData(Math.round($('p#latitude').html()), Math.round($('p#longitude').html()), dataArray, monthArray);
+	});
 
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(showPosition);
@@ -20,19 +35,16 @@ $(document).ready(function() {
 		$('p#longitude').html(curPosition.lng());
 	});
 	updateSize();
-	$("#efficiencySlider").simpleSlider("setValue", 15);
+	$("#efficiencySlider").simpleSlider("setValue", 1);
 	$("#efficiencySlider").bind("slider:changed", function (event, data) {
   		$("#efficiency").html(Math.floor(data.value) + "%");
+  		updateResults();
 	});
 });
 	
 function updateSize() {
 	var headerHeight = $("header").height();
 	$("#maparea, #sidebar").height($(window).height() - (headerHeight + 33));
-	// if($(sidebar).width() < 340) {
-	// 	$(sidebar).width(340);
-	// 	$(maparea).width($(window).width() - ($sidebar).width());
-	// }
 }
 
 function showPosition (position) {
@@ -53,18 +65,35 @@ function addMyMarker(latitude, longitude, map) {
 	return marker;
 }
 
-// function makeSlider() {
-// 	var select = $( "#minbeds" );
-//     var slider = $( "<div id='slider'></div>" ).insertAfter( select ).slider({
-//       min: 1,
-//       max: 6,
-//       range: "min",
-//       value: select[ 0 ].selectedIndex + 1,
-//       slide: function( event, ui ) {
-//         select[ 0 ].selectedIndex = ui.value - 1;
-//       }
-//     });
-//     $( "#minbeds" ).change(function() {
-//       slider.slider( "value", this.selectedIndex + 1 );
-//     });
-// }
+function getPosData(latitude, longitude, dataArray, monthArray) {
+	var found = false;
+	var iteration = 0;
+	while (!found) {
+		if(dataArray[iteration] == latitude) {
+			if(dataArray[iteration + 1] == longitude) {
+				for (i = 0; i < 13; i++) {
+					var step = 2 + i;
+					monthArray[i] = dataArray[iteration + step];
+				}
+				found = true;
+			}
+		}
+		iteration += 15;
+	}
+	updateResults();
+}
+
+function updateResults() {
+	if($("#surfaceArea").val()) {
+		surfaceArea = $("#surfaceArea").val();
+	} else {
+		surfaceArea = 0;
+	}
+	currentEfficiency = $("#efficiencySlider").val();
+	currentYield = monthArray[$("#monthSelect").val() - 1];
+	$("#resultsArea").html(Math.round(currentEfficiency) +
+	 "% (efficiency) * <br/>" + currentYield + " (kwh/square meter/day) * <br/>" +
+	  surfaceArea + " (square meters) * <br/>75% (average performance ratio) =");
+	var totalYield = currentEfficiency * currentYield * surfaceArea * .75;
+	$("#totalResults").html(Math.round(totalYield) + " <br/>(kwh per day)");
+}

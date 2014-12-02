@@ -71,8 +71,10 @@ legend {
 	font-weight: 700;
 }
 
-#results {
-	display: none;
+#totalResults {
+	margin-top: 15px;
+	text-align: center;
+	font-size: 3.2em;
 }
 
 @media (min-width : 992px) {
