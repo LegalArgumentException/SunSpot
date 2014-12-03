@@ -68,7 +68,7 @@ function initializeCoordinates() {
 function updateSize() {
  	if($(window).height() > 1000) {
 		var headerHeight = $("header").height();
-		$("#maparea, #sidebar").height($(window).height() - (headerHeight + 33));
+		$("#maparea, #sidebar").height($(window).height() - (headerHeight + 19));
 	}
 }
 

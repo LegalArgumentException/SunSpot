@@ -25,6 +25,7 @@ header {
 	border-bottom: 5px solid #F59E47;
 	font-family: 'Oswald', 'Helvetica', sans-serif;
 	padding: 1em;
+	padding-bottom: 0;
 }
 
 input {
@@ -49,6 +50,12 @@ legend {
 
 .sidebarItem {
 	margin-top: 10px;
+}
+
+#disclaimer {
+	text-align: right;
+	margin: 0;
+	padding: 0;
 }
 
 #efficiency, #performance {
