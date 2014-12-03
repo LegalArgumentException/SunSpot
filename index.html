@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
-		<title>SunSpot | Home</title>
+		<title>SunSpot | Solar Calculator</title>
 		<meta name="author" content="Tanner Garrett" />
 		<meta name="description" content="An interactive map tool to help users find the the appropriate solar setup to suit their needs" />
 		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
@@ -25,9 +25,6 @@
 						<form>
 							<div class="sidebarItem">
 								<legend>Position</legend>
-								<div class="btn-group" role="group">
-									<button type="button" id="change" class="btn btn-default">Update</button>
-								</div>
 								<div class="col-sm-6" id="latitude">
 									Latitude : <br />
 									<p id="latitude"><p/>
@@ -39,7 +36,7 @@
 							</div>
 							<div class="sidebarItem">
 								<legend>Surface Area</legend>
-								<input type="text" id="surfaceArea" placeholder="Panal Area"> Square Meters
+								<input type="text" id="surfaceArea" value="10" placeholder="Panal Area"> Square Meters
 							</div>
 							<div class="sidebarItem">
 								<legend>Time of Year</legend>
@@ -52,7 +49,7 @@
 								    <option value="5">May</option>
 								    <option value="6">June</option>
 								    <option value="7">July</option>
-								    <option alue="8">August</option>
+								    <option value="8">August</option>
 								    <option value="9">September</option>
 								    <option value="10">October</option>
 								    <option value="11">November</option>
@@ -62,7 +59,12 @@
 							<div class="sidebarItem">
 								<legend>Panel Efficiency</legend>
 								<input id="efficiencySlider" type="text" data-slider="true" data-slider-range="1, 100" />
-								<p id="efficiency">1%</p>
+								<p id="efficiency">15.0%</p>
+							</div>
+							<div class="sidebarRatio">
+								<legend>Performance Ratio</legend>
+								<input id="performanceSlider" type="text" data-slider="true" data-slider-range="1, 100" />
+								<p id="performance">75.0%</p>
 							</div>
 							<legend>Results</legend>
 							<div id="resultsArea">

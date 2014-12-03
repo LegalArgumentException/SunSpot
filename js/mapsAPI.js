@@ -1,25 +1,42 @@
+//	Global Variables
 	var dataArray = solarData.split(' ');
 	var latitudeDefault = 47.656467;
 	var longitudeDefault = -122.308969;
 	var monthArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 	var currentLocation = new google.maps.LatLng(latitudeDefault, longitudeDefault);
-	var currentEfficiency = 0;
+	var currentEfficiency = 15.0;
+	var currentPerformance = 75.0;
 	var currentYield = 0;
 	var currentMonth = 0;
-	var surfaceArea = 0;
+	var surfaceArea = 10;
 
 $(document).ready(function() {
 
+	// Attaching Event Handlers
 	$(window).on("resize", updateSize);
-	$("#surfaceArea").keydown(updateResults());
-	$("#efficiencySlider").change(updateResults());
-	$("#months").on("change", function () {
+	$("#surfaceArea").keyup(function() {
 		getPosData(Math.round($('p#latitude').html()), Math.round($('p#longitude').html()), dataArray, monthArray);
+		updateResults();
 	});
-	$("#change").on("click", function() { 
+	$("#efficiencySlider").change(updateResults());
+	$("#monthSelect").change(function () {
 		getPosData(Math.round($('p#latitude').html()), Math.round($('p#longitude').html()), dataArray, monthArray);
+		updateResults();
 	});
 
+	// Initializing sliders
+	$("#efficiencySlider").simpleSlider("setValue", 15.0);
+	$("#efficiencySlider").bind("slider:changed", function (event, data) {
+  		$("#efficiency").html(data.value.toFixed(1) + "%");
+  		updateResults();
+	});
+	$("#performanceSlider").simpleSlider("setValue", 75.0);
+	$("#performanceSlider").bind("slider:changed", function (event, data) {
+  		$("#performance").html(data.value.toFixed(1) + "%");
+  		updateResults();
+	});
+
+	// Check to see if geolocation is available on current browser, sets information accordingly if true
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(showPosition);
 	}
@@ -33,25 +50,32 @@ $(document).ready(function() {
 		var curPosition = marker.getPosition();
 		$('p#latitude').html(curPosition.lat());
 		$('p#longitude').html(curPosition.lng());
+		getPosData(Math.round($('p#latitude').html()), Math.round($('p#longitude').html()), dataArray, monthArray);
+		updateResults();
 	});
+	initializeCoordinates();
+	getPosData(Math.round($('p#latitude').html()), Math.round($('p#longitude').html()), dataArray, monthArray);
+	updateResults();
 	updateSize();
-	$("#efficiencySlider").simpleSlider("setValue", 1);
-	$("#efficiencySlider").bind("slider:changed", function (event, data) {
-  		$("#efficiency").html(Math.floor(data.value) + "%");
-  		updateResults();
-	});
+
 });
+
+function initializeCoordinates() {
+	$('p#latitude').html(latitudeDefault);
+	$('p#longitude').html(longitudeDefault);
+}
 	
 function updateSize() {
-	var headerHeight = $("header").height();
-	$("#maparea, #sidebar").height($(window).height() - (headerHeight + 33));
+ 	if($(window).height() > 1000) {
+		var headerHeight = $("header").height();
+		$("#maparea, #sidebar").height($(window).height() - (headerHeight + 33));
+	}
 }
 
 function showPosition (position) {
 	latitudeDefault = position.coords.latitude;
 	longitudeDefault = position.coords.longitude;
-	$('p#latitude').html(latitudeDefault);
-	$('p#longitude').html(longitudeDefault);
+	initializeCoordinates();
 }
 
 function addMyMarker(latitude, longitude, map) {
@@ -90,10 +114,11 @@ function updateResults() {
 		surfaceArea = 0;
 	}
 	currentEfficiency = $("#efficiencySlider").val();
+	currentPerformance = $("#performanceSlider").val();
 	currentYield = monthArray[$("#monthSelect").val() - 1];
-	$("#resultsArea").html(Math.round(currentEfficiency) +
-	 "% (efficiency) * <br/>" + currentYield + " (kwh/square meter/day) * <br/>" +
-	  surfaceArea + " (square meters) * <br/>75% (average performance ratio) =");
-	var totalYield = currentEfficiency * currentYield * surfaceArea * .75;
-	$("#totalResults").html((totalYield * .1).toFixed(2) + " <br/>(kwh per day)");
+	$("#resultsArea").html($("#efficiency").html() +
+	 " (efficiency) * <br/>" + currentYield + " (kwh/square meter/day) * <br/>" +
+	  surfaceArea + " (square meters) * <br/>" + $("#performance").html() + " (performance due to surroundings) =");
+	var totalYield = (currentEfficiency * 0.01) * currentYield * surfaceArea * (currentPerformance * 0.01);
+	$("#totalResults").html(totalYield.toFixed(2) + " <br/>(kwh per day)");
 }
