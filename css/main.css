@@ -33,6 +33,7 @@ input {
 
 legend {
 	font-size: 2.1em;
+	text-decoration: underline;
 }
 
 .btn-group {
@@ -57,7 +58,13 @@ legend {
 }
 
 #efficiencySlider-slider, #performanceSlider-slider {
-		width: 100%;
+	width: 100%;
+}
+
+#instructions{
+	font-size: 1.2em;
+	text-align: center;
+	text-decoration: underline;
 }
 
 #longitude, #latitude {
